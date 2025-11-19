@@ -54,3 +54,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+networks:
+  app_net:
+    external: true
+    name: pk00s00g8csc0kgs0swogg0g
