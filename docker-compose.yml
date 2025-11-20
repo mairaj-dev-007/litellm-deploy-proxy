@@ -17,6 +17,7 @@ services:
         - ${POSTGRES_USER:-litellm}
       interval: 5s
       retries: 10
+
   redis:
     image: redis:alpine
     command:
@@ -33,6 +34,7 @@ services:
         - ping
       interval: 5s
       retries: 10
+
   litellm:
     image: ghcr.io/berriai/litellm-database:main-stable
     depends_on:
@@ -49,6 +51,7 @@ services:
     ports:
       - 4000:4000
     restart: on-failure
+
   proxy:
     image: nginx:alpine
     depends_on:
@@ -60,6 +63,7 @@ services:
         source: ./nginx
         target: /etc/nginx/conf.d
         read_only: true
+
 volumes:
   postgres_data: null
   redis_data: null
