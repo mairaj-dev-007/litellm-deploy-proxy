@@ -32,7 +32,7 @@ services:
       redis:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://$${POSTGRES_USER:-litellm}:$${POSTGRES_PASSWORD:-litellm}@postgres:5432/$${POSTGRES_DB:-litellm}
+      DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB
       REDIS_URL: redis://redis:6379
       LITELLM_LOG: WARNING
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
