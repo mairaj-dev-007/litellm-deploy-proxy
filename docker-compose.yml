@@ -4,9 +4,9 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-litellm}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-litellm}
-      POSTGRES_DB: ${POSTGRES_DB:-litellm}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -14,7 +14,7 @@ services:
         - CMD
         - pg_isready
         - -U
-        - ${POSTGRES_USER:-litellm}
+        - ${POSTGRES_USER}
       interval: 5s
       retries: 10
 
