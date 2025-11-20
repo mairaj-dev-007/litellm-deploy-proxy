@@ -57,7 +57,7 @@ services:
     depends_on:
       - litellm
     ports:
-      - 85:80
+      - 95:80
     volumes:
       - type: bind
         source: /data/coolify/applications/osgck0gc0gwscow4kck4scog/nginx
