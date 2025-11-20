@@ -60,7 +60,7 @@ services:
       - 85:80
     volumes:
       - type: bind
-        source: ./nginx
+        source: /data/coolify/applications/osgck0gc0gwscow4kck4scog/nginx
         target: /etc/nginx/conf.d
         read_only: true
 
