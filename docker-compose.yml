@@ -59,8 +59,9 @@ services:
     ports:
       - 95:80
     volumes:
-      - ./nginx:/etc/nginx/conf.d:ro
+      - proxy_conf:/etc/nginx/conf.d:ro
 
 volumes:
-  postgres_data: null
-  redis_data: null
+  postgres_data:
+  redis_data:
+  proxy_conf:
