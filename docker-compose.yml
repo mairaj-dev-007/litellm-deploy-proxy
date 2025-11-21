@@ -49,7 +49,7 @@ services:
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
     ports:
-      - 4000:4000
+      - 4002:4000
     restart: on-failure
 
   proxy:
