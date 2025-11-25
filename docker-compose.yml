@@ -1,4 +1,3 @@
----
 version: "3.8"
 services:
   postgres:
@@ -10,11 +9,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test:
-        - CMD
-        - pg_isready
-        - -U
-        - ${POSTGRES_USER}
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
       interval: 5s
       retries: 10
 
@@ -28,10 +23,7 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test:
-        - CMD
-        - redis-cli
-        - ping
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       retries: 10
 
@@ -43,13 +35,13 @@ services:
       redis:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://redis:6379
       LITELLM_LOG: WARNING
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
     ports:
-      - 4002:4000
+      - "4002:4000"
     restart: on-failure
 
   proxy:
@@ -57,11 +49,17 @@ services:
     depends_on:
       - litellm
     ports:
-      - 95:80
+      - "95:80"
     volumes:
       - proxy_conf:/etc/nginx/conf.d:ro
 
 volumes:
   postgres_data:
   redis_data:
+
   proxy_conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./nginx     # <-- host folder containing *.conf files
+      o: bind
