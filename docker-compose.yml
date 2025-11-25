@@ -58,6 +58,3 @@ services:
 volumes:
   postgres_data:
   redis_data:
-
-
-add a prometheus also so that i can check it thorugh 
