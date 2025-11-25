@@ -41,7 +41,6 @@ services:
       LITELLM_LOG: WARNING
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
-      PROMETHEUS_ENABLED: "true"     # <—— enable metrics in LiteLLM
     restart: on-failure
     ports:
       - "4002:4000"
@@ -53,20 +52,12 @@ services:
     ports:
       - "95:80"
     volumes:
+      # Coolify source folder → Container destination
       - /data/coolify/applications/osgck0gc0gwscow4kck4scog/nginx:/etc/nginx/conf.d:ro
-
-  prometheus:
-    image: prom/prometheus:latest
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-    ports:
-      - "9099:9090"
-    depends_on:
-      - litellm
-      - redis
 
 volumes:
   postgres_data:
   redis_data:
+
+
+add a prometheus also so that i can check it thorugh 
