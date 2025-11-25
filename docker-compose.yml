@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   postgres:
     image: postgres:15
@@ -40,9 +41,9 @@ services:
       LITELLM_LOG: WARNING
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
+    restart: on-failure
     ports:
       - "4002:4000"
-    restart: on-failure
 
   proxy:
     image: nginx:alpine
@@ -51,15 +52,9 @@ services:
     ports:
       - "95:80"
     volumes:
-      - proxy_conf:/etc/nginx/conf.d
+      # Coolify source folder → Container destination
+      - /data/coolify/applications/osgck0gc0gwscow4kck4scog/nginx:/etc/nginx/conf.d:ro
 
 volumes:
   postgres_data:
   redis_data:
-
-  proxy_conf:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./nginx     # <-- host folder containing *.conf files
-      o: bind
